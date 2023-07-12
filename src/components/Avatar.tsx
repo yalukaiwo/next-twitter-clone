@@ -33,7 +33,11 @@ const Avatar: React.FC<IAvatarProps> = ({ user, isLarge, hasBorder }) => {
         fill
         className="object-cover rounded-full"
         alt="Avatar"
-        src={user?.profileImage ?? "/images/placeholder.png"}
+        src={
+          user?.profileImage && user.profileImage.length > 0
+            ? user.profileImage
+            : "/images/placeholder.png"
+        }
         onClick={clickHandler}
       />
     </div>
