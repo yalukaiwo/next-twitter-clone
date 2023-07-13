@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import type { User } from "@prisma/client";
 
 interface IAvatarProps {
-  user: User;
+  user?: User;
   isLarge?: boolean;
   hasBorder?: boolean;
 }
@@ -16,11 +16,11 @@ const Avatar: React.FC<IAvatarProps> = ({ user, isLarge, hasBorder }) => {
     (event: React.MouseEvent<HTMLElement>) => {
       event.stopPropagation();
 
-      const url = `/users/${user.id}`;
+      const url = `/users/${user?.id}`;
 
       router.push(url, undefined, { shallow: true });
     },
-    [router, user.id]
+    [router, user?.id]
   );
 
   return (

@@ -1,4 +1,5 @@
-import { Header } from "@/components";
+import { Form, Header } from "@/components";
+import PostFeed from "@/components/posts/PostFeed";
 import Head from "next/head";
 
 const Home = () => {
@@ -8,6 +9,8 @@ const Home = () => {
         <title>Home</title>
       </Head>
       <Header label="Home" />
+      <Form placeholder="What's happening?" />
+      <PostFeed />
     </>
   );
 };

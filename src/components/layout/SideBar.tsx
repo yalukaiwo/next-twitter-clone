@@ -27,7 +27,12 @@ const SideBar = () => {
       icon: BsBellFill,
       isProtected: true,
     },
-    { label: "Profile", href: "/users/123", icon: FaUser, isProtected: true },
+    {
+      label: "Profile",
+      href: `/users/${user?.id}`,
+      icon: FaUser,
+      isProtected: true,
+    },
   ];
 
   return (

@@ -3,9 +3,9 @@ import useEditModal from "@/hooks/useEditModal";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import Modal from "../Modal";
-import Input from "../Input";
 import ImageUpload from "../ImageUpload";
+import Input from "../Input";
+import Modal from "../Modal";
 
 const EditModal = () => {
   const { data: currentUser } = useCurrentUser();
