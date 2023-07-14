@@ -4,7 +4,8 @@ import { formatDistanceToNowStrict } from "date-fns";
 import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
 import Avatar from "../Avatar";
-import { AiOutlineHeart, AiOutlineMessage } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart, AiOutlineMessage } from "react-icons/ai";
+import useLike from "@/hooks/useLike";
 
 type Post = Prisma.PostGetPayload<{ include: { user: true; comments: true } }>;
 
@@ -18,6 +19,7 @@ const PostItem: React.FC<IPostItemProps> = ({ data, userId }) => {
   const loginModal = useLoginModal();
 
   const { data: currentUser } = useCurrentUser();
+  const { isLiked, toggleLike } = useLike({ postId: data.id, userId });
 
   const goToUser = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
@@ -35,10 +37,11 @@ const PostItem: React.FC<IPostItemProps> = ({ data, userId }) => {
   const onLike = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       e.stopPropagation();
+      if (!currentUser) return loginModal.onOpen();
 
-      loginModal.onOpen();
+      toggleLike();
     },
-    [loginModal]
+    [loginModal, currentUser, toggleLike]
   );
 
   const createdAt = useMemo(() => {
@@ -78,9 +81,15 @@ const PostItem: React.FC<IPostItemProps> = ({ data, userId }) => {
             </div>
             <div
               onClick={onLike}
-              className="flex flex-row items-center text-neutral-500 gap-2 cursor-pointer transition hover:text-red-500"
+              className={`flex flex-row items-center ${
+                isLiked ? "text-red-500" : "text-neutral-500"
+              } gap-2 cursor-pointer transition hover:text-red-500`}
             >
-              <AiOutlineHeart size={20} />
+              {isLiked ? (
+                <AiFillHeart size={20} />
+              ) : (
+                <AiOutlineHeart size={20} />
+              )}
               <p>{data.likedIds?.length || 0}</p>
             </div>
           </div>

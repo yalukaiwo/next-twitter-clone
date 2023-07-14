@@ -14,6 +14,7 @@ interface ILabel {
   href: string;
   icon: IconType;
   isProtected?: boolean;
+  alert?: boolean;
 }
 
 const SideBar = () => {
@@ -26,6 +27,7 @@ const SideBar = () => {
       href: "/notifications",
       icon: BsBellFill,
       isProtected: true,
+      alert: !!user?.hasNotification,
     },
     {
       label: "Profile",
@@ -47,6 +49,7 @@ const SideBar = () => {
               label={item.label}
               icon={item.icon}
               auth={item.isProtected}
+              alert={item.alert}
             />
           ))}
           {user && (
